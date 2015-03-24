@@ -11,8 +11,3 @@ module RubyGame
 		end
 	end
 end
-
-# main 
-
-run=RubyGame::Game.new
-run.start!

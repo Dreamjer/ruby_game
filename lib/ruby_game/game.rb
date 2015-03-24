@@ -1,5 +1,3 @@
-require "gosu"
-
 module RubyGame
 	class Game < Gosu::Window
 		def initialize
@@ -11,8 +9,3 @@ module RubyGame
 		end
 	end
 end
-
-# main 
-
-jeu = RubyGame::Game.new
-jeu.start!

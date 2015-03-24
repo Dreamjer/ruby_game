@@ -1,5 +1,5 @@
 require "gosu"
-require_relative "ruby_game/game"
+require "ruby_game/game"
 
 module RubyGame
   # Your code goes here...
