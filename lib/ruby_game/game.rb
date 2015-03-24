@@ -4,7 +4,7 @@ module RubyGame
 			super(640,480,false)
 			@background_image = Gosu::Image.new(self, File.join(IMAGES_PATH,'background.png'),true)
 			@diamant = Diamant.new(self,rand(50..600),rand(50..400))
-			@player = Player.new(self,350,280)
+			@player = Player.new(self,rand(50..600),rand(50..400))
 		end
 
 		def update
