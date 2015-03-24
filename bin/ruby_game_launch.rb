@@ -2,7 +2,7 @@
 
 require_relative '../lib/ruby_game'
 
-# main 
+# main
 
 jeu = RubyGame::Game.new
 jeu.start!
