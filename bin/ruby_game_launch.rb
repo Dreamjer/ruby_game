@@ -4,5 +4,8 @@ require_relative '../lib/ruby_game'
 
 # main
 
-jeu = RubyGame::Game.new
+@diamant = RubyGame::Diamant.new(self,rand(50..600),rand(50..400))
+@player  = RubyGame::Player.new(self,rand(50..600),rand(50..400))
+
+jeu = RubyGame::Game.new(@player,@diamant)
 jeu.start!
