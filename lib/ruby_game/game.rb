@@ -14,6 +14,7 @@ module RubyGame
 			@player.move_right if button_down?(Gosu::Button::KbRight)
 			@player.move_up    if button_down?(Gosu::Button::KbUp)
 			@player.move_down  if button_down?(Gosu::Button::KbDown)
+			puts "VICTOIRE ! " if @player.touch?(@diamant)
 		end
 
 		def draw 																		# methode draw surchargée de gosu::Window

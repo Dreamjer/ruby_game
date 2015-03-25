@@ -5,7 +5,7 @@ module RubyGame
       @velocite=3
     end
     @@bord_right=600
-    @@bord_bas=420
+    @@bord_bas=430
 
     def move_left
       @line-=@velocite if @line >= 10
