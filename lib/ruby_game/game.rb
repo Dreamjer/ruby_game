@@ -3,7 +3,7 @@ module RubyGame
 		def initialize
 			super(640,480,false) # appelle initialize du pere (ici gosu::window)
 			@background_image = Gosu::Image.new(self, File.join(IMAGES_PATH,'background.png'),true)
-			@font = Gosu::Font.new(self,Gosu::default_font_name,60)
+			@font = Gosu::Font.new(self,Gosu::default_font_name,50)
 		end
 
 		def diamant(line,col,img)
@@ -28,12 +28,15 @@ module RubyGame
 				@player.move_up    if button_down?(Gosu::Button::KbUp)
 				@player.move_down  if button_down?(Gosu::Button::KbDown)
 				@status=:win if @player.touch?(@diamant)
+				@monster.follow(@player)
+				@status=:gameover if @monster.touch?(@player)
 			end
 		end
 
 		def draw 																		# methode draw surchargée de gosu::Window
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
 			@font.draw("Victory !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
+			@font.draw("GAME OVER !",200,240,2,1.0,1.0,0xffffff00,) if @status == :gameover
 			[@player,@diamant,@monster].each { |obj| obj.draw} # methode draw du staticobject
 		end
 
