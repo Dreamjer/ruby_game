@@ -1,13 +1,19 @@
 module RubyGame
 	class Game < Gosu::Window
-		def initialize(player,diamant)
+		def initialize
 			super(640,480,false) # appelle initialize du pere (ici gosu::window)
 			@background_image = Gosu::Image.new(self, File.join(IMAGES_PATH,'background.png'),true)
 			@font = Gosu::Font.new(self,Gosu::default_font_name,60)
-			diamant.init_image(self)
-			player.init_image(self)
-			@diamant = diamant
-			@player = player
+		end
+
+		def diamant(line,col,img)
+			@diamant=Diamant.new(line,col,img)
+			@diamant.init_image(self)
+		end
+
+		def player(line,col,img)
+			@player=Player.new(line,col,img)
+			@player.init_image(self)
 		end
 
 		def update
@@ -22,12 +28,13 @@ module RubyGame
 
 		def draw 																		# methode draw surchargée de gosu::Window
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
-			@font.draw("BALEZE !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
+			@font.draw("Victory !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
 			[@player,@diamant].each { |obj| obj.draw} # methode draw du staticobject
 		end
 
 		def start!
 			@status=:run
+			yield(self)
 			self.show # execute 2 treads en parallele : draw et update
 		end
 	end
