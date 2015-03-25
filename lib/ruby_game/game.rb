@@ -21,6 +21,15 @@ module RubyGame
 			@monster.init_image(self)
 		end
 
+		def monsters(nombre)
+			@monsters = []
+			nombre.times {
+				monster = Monster.new(rand(50..600),rand(50..400),"ghost1.png")
+				monster.init_image(self)
+				@monsters << monster
+			}
+		end
+
 		def update
 			if @status == :run
 				@player.move_left  if button_down?(Gosu::Button::KbLeft)
@@ -28,8 +37,10 @@ module RubyGame
 				@player.move_up    if button_down?(Gosu::Button::KbUp)
 				@player.move_down  if button_down?(Gosu::Button::KbDown)
 				@status=:win if @player.touch?(@diamant)
-				@monster.follow(@player)
-				@status=:gameover if @monster.touch?(@player)
+				@monsters.each do |monstroplante|
+					monstroplante.follow(@player)
+					#@status=:gameover if monstroplante.touch?(@player)
+				end
 			end
 		end
 
@@ -37,7 +48,7 @@ module RubyGame
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
 			@font.draw("Victory !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
 			@font.draw("GAME OVER !",200,240,2,1.0,1.0,0xffffff00,) if @status == :gameover
-			[@player,@diamant,@monster].each { |obj| obj.draw} # methode draw du staticobject
+			([@player,@diamant]+@monsters).each { |obj| obj.draw} # methode draw du staticobject
 		end
 
 		def start!
