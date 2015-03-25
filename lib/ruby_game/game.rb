@@ -16,6 +16,11 @@ module RubyGame
 			@player.init_image(self)
 		end
 
+		def monster(line,col,img)
+			@monster=Monster.new(line,col,img)
+			@monster.init_image(self)
+		end
+
 		def update
 			if @status == :run
 				@player.move_left  if button_down?(Gosu::Button::KbLeft)
@@ -29,7 +34,7 @@ module RubyGame
 		def draw 																		# methode draw surchargée de gosu::Window
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
 			@font.draw("Victory !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
-			[@player,@diamant].each { |obj| obj.draw} # methode draw du staticobject
+			[@player,@diamant,@monster].each { |obj| obj.draw} # methode draw du staticobject
 		end
 
 		def start!

@@ -11,4 +11,5 @@ jeu = RubyGame::Game.new
 jeu.start! do |j|
   j.diamant(rand(50..600),rand(50..400),"ruby.png")
   j.player(rand(50..600),rand(50..400),"player.png")
+  j.monster(rand(50..600),rand(50..400),"dark_knight.png")
 end
