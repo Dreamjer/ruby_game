@@ -39,22 +39,31 @@ module RubyGame
 				@status=:win if @player.touch?(@diamant)
 				@monsters.each do |monstroplante|
 					monstroplante.follow(@player)
-					#@status=:gameover if monstroplante.touch?(@player)
+					@status=:gameover if monstroplante.touch?(@player)
 				end
 			end
 		end
 
+#		def button_down?(id)
+#			self.restart! if id == Gosu::Button::KbR
+#		end
+
 		def draw 																		# methode draw surchargée de gosu::Window
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
-			@font.draw("Victory !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
+			@font.draw("YOU WIN !",200,240,2,1.0,1.0,0xffffff00,) if @status == :win
 			@font.draw("GAME OVER !",200,240,2,1.0,1.0,0xffffff00,) if @status == :gameover
 			([@player,@diamant]+@monsters).each { |obj| obj.draw} # methode draw du staticobject
 		end
 
-		def start!
+		def start!(&blkjeu)
 			@status=:run
-			yield(self)
+			blkjeu.call(self) if block_given?
+			#yield(self)
 			self.show # execute 2 treads en parallele : draw et update
+		end
+
+		def restart!(blk)
+			start!(blk)
 		end
 	end
 end
