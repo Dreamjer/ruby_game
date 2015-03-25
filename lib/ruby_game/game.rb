@@ -44,9 +44,10 @@ module RubyGame
 			end
 		end
 
-#		def button_down?(id)
-#			self.restart! if id == Gosu::Button::KbR
-#		end
+		def button_down(id)
+			self.restart! if id == Gosu::Button::KbR
+			self.close if (id == Gosu::Button::KbEscape || id == Gosu::Button::KbA)
+		end
 
 		def draw 																		# methode draw surchargée de gosu::Window
 			@background_image.draw(0,0,0) 						# methode draw de Gosu::Image
@@ -56,14 +57,14 @@ module RubyGame
 		end
 
 		def start!(&blkjeu)
+			@savblk=blkjeu if block_given?
 			@status=:run
-			blkjeu.call(self) if block_given?
-			#yield(self)
-			self.show # execute 2 treads en parallele : draw et update
+			@savblk.call(self)
+			self.show if block_given? # execute 2 treads en parallele : draw et update
 		end
 
-		def restart!(blk)
-			start!(blk)
+		def restart!
+			start!
 		end
 	end
 end
