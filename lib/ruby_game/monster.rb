@@ -6,10 +6,8 @@ module RubyGame
     end
 
     def follow(cible)
-      self.col += @velocite  if cible.col - self.col > 0
-      self.col -= @velocite  if cible.col - self.col < 0
-      self.line += @velocite if cible.line - self.line > 0
-      self.line -= @velocite if cible.line - self.line < 0
+      self.col  += (cible.col  <=> self.col  ) * @velocite 
+      self.line += (cible.line <=> self.line ) * @velocite
     end
   end
 end
