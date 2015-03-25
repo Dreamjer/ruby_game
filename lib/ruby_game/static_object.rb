@@ -1,9 +1,10 @@
 module RubyGame
   class StaticObject
-    def initialize(window,line,col,img)
+    def initialize(line,col,img)
       @line = line
       @col = col
       @image_name = img
+      @velocite=1
     end
 
     def draw

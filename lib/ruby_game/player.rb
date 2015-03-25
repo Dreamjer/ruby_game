@@ -1,22 +1,23 @@
 module RubyGame
 	class Player < StaticObject
-    def initialize(window,line,col, img = 'player.png')
+    def initialize(line,col, img = 'player.png')
       super
+      @velocite=3
     end
     @@bord_right=600
     @@bord_bas=420
 
     def move_left
-      @line-=3 if @line >= 10
+      @line-=@velocite if @line >= 10
     end
     def move_right
-      @line+=3 if @line <= @@bord_right
+      @line+=@velocite if @line <= @@bord_right
     end
     def move_up
-      @col-=3 if @col >= 10
+      @col-=@velocite if @col >= 10
     end
     def move_down
-      @col+=3 if @col <= @@bord_bas
+      @col+=@velocite if @col <= @@bord_bas
     end
   end
 end
