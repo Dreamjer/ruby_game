@@ -13,7 +13,7 @@ module RubyGame
       @line+=3 if @line <= @@bord_right
     end
     def move_up
-      @col-=3 if @col >=10
+      @col-=3 if @col >= 10
     end
     def move_down
       @col+=3 if @col <= @@bord_bas
