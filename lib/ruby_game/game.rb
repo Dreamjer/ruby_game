@@ -11,11 +11,13 @@ module RubyGame
 		end
 
 		def update
-			@player.move_left  if button_down?(Gosu::Button::KbLeft)
-			@player.move_right if button_down?(Gosu::Button::KbRight)
-			@player.move_up    if button_down?(Gosu::Button::KbUp)
-			@player.move_down  if button_down?(Gosu::Button::KbDown)
-			@status=:win if @player.touch?(@diamant)
+			if @status == :run
+				@player.move_left  if button_down?(Gosu::Button::KbLeft)
+				@player.move_right if button_down?(Gosu::Button::KbRight)
+				@player.move_up    if button_down?(Gosu::Button::KbUp)
+				@player.move_down  if button_down?(Gosu::Button::KbDown)
+				@status=:win if @player.touch?(@diamant)
+			end
 		end
 
 		def draw 																		# methode draw surchargée de gosu::Window

@@ -6,11 +6,11 @@ module RubyGame
       @col = col
       @image_name = img
       @velocite=1
-      @taille_cible=20
+      @taille_cible=30
     end
 
     def draw
-      @image.draw(@line,@col,1)
+      @image.draw_rot(@line,@col,1,0)
     end
 
     def init_image(window)
