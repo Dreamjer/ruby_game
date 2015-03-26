@@ -65,7 +65,10 @@ module RubyGame
 			@monsters = []
 			@savblk=blkjeu if block_given? # passage du block 'blkjeu' en proc @savblk
 			@status=:run
-			@savblk.call(self) # utilisation de la proc @savblk pour s'appeler elle même
+#			@savblk.call(self) # utilisation de la proc @savblk pour s'appeler elle même
+			self.instance_eval(&@savblk)  # remplace la l'execution de la proc du dessus. Ca permet d'enlever l'appel à l'objet jeu dans le launch
+																		# instance_eval prend un blok l'execution de la proc parametre et execute le bloc dans le contexte de l'objet qui appel l'instance (ici self) Ca permet d'enlever l'appel à l'objet jeu dans le launch
+																		# le & transforme un block en proc et vise et versa
 			self.show if block_given? # execute 2 treads en parallele : draw et update
 		end
 
