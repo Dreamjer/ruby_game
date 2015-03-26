@@ -21,14 +21,18 @@ module RubyGame
 			@monster.init_image(self)
 		end
 
-		def monsters(nombre,comport)
+		def monsters(dict_config)
+			nombre=dict_config[:nombre]
+			comport=dict_config[:action]
 			@monsters = [] if @monsters.nil?
 			nombre.times {
 				monster = Monster.new(rand(50..600),rand(50..400),"ghost1.png")
 				monster.init_image(self)
+				monster.cible=@player
 				monster.comport = comport # sauvegarde du comportement en appelant le setter comport=
 				@monsters << monster
 			}
+#			ap @monsters
 		end
 
 		def update
@@ -39,8 +43,8 @@ module RubyGame
 				@player.move_down  if button_down?(Gosu::Button::KbDown)
 				@status=:win if @player.touch?(@diamant)
 				@monsters.each do |monstroplante|
-					@comport=monstroplante.comport
-					@comport.call(monstroplante,@player)
+					comport=monstroplante.comport
+					monstroplante.public_send(comport)
 					@status=:gameover if monstroplante.touch?(@player)
 				end
 			end

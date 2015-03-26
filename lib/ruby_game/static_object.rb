@@ -1,6 +1,6 @@
 module RubyGame
   class StaticObject
-    attr_accessor :line, :col
+    attr_accessor :line, :col, :cible
     def initialize(line,col,img)
       @line = line
       @col = col
