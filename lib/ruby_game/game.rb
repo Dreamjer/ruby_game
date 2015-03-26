@@ -46,7 +46,7 @@ module RubyGame
 
 		def button_down(id)
 			self.restart! if id == Gosu::Button::KbR
-			self.close if (id == Gosu::Button::KbEscape || id == Gosu::Button::KbA)
+			self.close if (id == Gosu::Button::KbEscape || id == Gosu::Button::KbA) #gosu fonctionne en querty
 		end
 
 		def draw 																		# methode draw surchargée de gosu::Window
