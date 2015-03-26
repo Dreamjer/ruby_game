@@ -24,7 +24,6 @@ module RubyGame
 		def monsters(dict_config)
 			nombre=dict_config[:nombre]
 			comport=dict_config[:action]
-			@monsters = [] if @monsters.nil?
 			nombre.times {
 				monster = Monster.new(rand(50..600),rand(50..400),"ghost1.png")
 				monster.init_image(self)
@@ -63,15 +62,14 @@ module RubyGame
 		end
 
 		def start!(&blkjeu)
+			@monsters = []
 			@savblk=blkjeu if block_given? # passage du block 'blkjeu' en proc @savblk
 			@status=:run
 			@savblk.call(self) # utilisation de la proc @savblk pour s'appeler elle même
 			self.show if block_given? # execute 2 treads en parallele : draw et update
 		end
 
-		def restart!
-			@monsters = []
-			start!
-		end
+		alias_method :restart! , :start!
+
 	end
 end

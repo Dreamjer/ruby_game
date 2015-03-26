@@ -11,7 +11,7 @@ jeu = RubyGame::Game.new
 jeu.start! do |j|
   j.diamant(rand(50..600),rand(50..400),"ruby.png")
   j.player(rand(50..600),rand(50..400),"player.png")
-  j.monsters(nombre: 1, action: :follow)
+  j.monsters(nombre: 5, action: :follow)
   j.monsters(nombre: 2, action: :move_up_down)
   j.monsters(nombre: 2, action: :move_latteral)
 #  j.monsters(5, lambda {|m,p| m.follow(p)})
