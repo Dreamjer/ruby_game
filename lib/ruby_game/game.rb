@@ -21,11 +21,12 @@ module RubyGame
 			@monster.init_image(self)
 		end
 
-		def monsters(nombre)
-			@monsters = []
+		def monsters(nombre,comport)
+			@monsters = [] if @monsters.nil?
 			nombre.times {
 				monster = Monster.new(rand(50..600),rand(50..400),"ghost1.png")
 				monster.init_image(self)
+				monster.comport = comport # sauvegarde du comportement en appelant le setter comport=
 				@monsters << monster
 			}
 		end
@@ -38,7 +39,8 @@ module RubyGame
 				@player.move_down  if button_down?(Gosu::Button::KbDown)
 				@status=:win if @player.touch?(@diamant)
 				@monsters.each do |monstroplante|
-					monstroplante.follow(@player)
+					@comport=monstroplante.comport
+					@comport.call(monstroplante,@player)
 					@status=:gameover if monstroplante.touch?(@player)
 				end
 			end
@@ -46,7 +48,7 @@ module RubyGame
 
 		def button_down(id)
 			self.restart! if id == Gosu::Button::KbR
-			self.close if (id == Gosu::Button::KbEscape || id == Gosu::Button::KbA) #gosu fonctionne en querty
+			self.close if (id == Gosu::Button::KbEscape || id == Gosu::Button::KbA) # !! Gosu fonctionne en querty
 		end
 
 		def draw 																		# methode draw surchargée de gosu::Window
@@ -57,13 +59,14 @@ module RubyGame
 		end
 
 		def start!(&blkjeu)
-			@savblk=blkjeu if block_given?
+			@savblk=blkjeu if block_given? # passage du block 'blkjeu' en proc @savblk
 			@status=:run
-			@savblk.call(self)
+			@savblk.call(self) # utilisation de la proc @savblk pour s'appeler elle même
 			self.show if block_given? # execute 2 treads en parallele : draw et update
 		end
 
 		def restart!
+			@monsters = []
 			start!
 		end
 	end
