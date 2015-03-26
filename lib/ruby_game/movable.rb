@@ -1,13 +1,18 @@
 module RubyGame
-	class Player < StaticObject
-    include Movable
-    def initialize(line,col, img = 'player.png')
-      super
-      @velocite=3
-    end
+  module Movable
     @@bord_right=600
     @@bord_bas=430
 
+    def move_up_down
+      self.col += @velocite
+      @velocite=1  if self.col < 20
+      @velocite=-1 if self.col > 460
+    end
+    def move_latteral
+      self.line += @velocite
+      @velocite=1  if self.line < 20
+      @velocite=-1 if self.line > 600
+    end
     def move_left
       @line-=@velocite if @line >= 10
     end

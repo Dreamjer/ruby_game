@@ -1,5 +1,6 @@
 require "gosu"
 require_relative "ruby_game/static_object"
+require_relative "ruby_game/movable"
 require_relative "ruby_game/player"
 require_relative "ruby_game/diamant"
 require_relative "ruby_game/monster"
