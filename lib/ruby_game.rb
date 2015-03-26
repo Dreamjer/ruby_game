@@ -1,4 +1,5 @@
 require "gosu"
+require "awesome_print"
 require_relative "ruby_game/static_object"
 require_relative "ruby_game/movable"
 require_relative "ruby_game/player"
